@@ -27,6 +27,7 @@ class User extends Authenticatable implements HasAvatar
         'email',
         'password',
         'avatar_url',
+        'role',
     ];
 
     /**
@@ -53,5 +54,13 @@ class User extends Authenticatable implements HasAvatar
     public function getFilamentAvatarUrl(): ?string
     {
         return $this->avatar_url ? Storage::url($this->avatar_url) : null ;
+    }
+
+    // 分配静态角色
+    protected static function booted(): void
+    {
+        static::creating(function (User $user) {
+            $user->role = 'user';
+        });
     }
 }

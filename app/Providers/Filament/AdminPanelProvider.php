@@ -81,6 +81,8 @@ class AdminPanelProvider extends PanelProvider
                 //     permissions: ['my','custom','permissions'] // optional, customize the permissions (default = ["create", "view", "update", "delete"])
                 // )
             )
+            // 开启注册功能
+            ->registration()
         ;
     }
 }
