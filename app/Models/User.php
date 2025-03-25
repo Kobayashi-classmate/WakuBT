@@ -8,9 +8,14 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+use Illuminate\Support\Facades\Storage;
+use Filament\Models\Contracts\HasAvatar;
+
+use Jeffgreco13\FilamentBreezy\Traits\TwoFactorAuthenticatable;
+
+class User extends Authenticatable implements HasAvatar
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, TwoFactorAuthenticatable;
 
     /**
      * The attributes that are mass assignable.
@@ -21,6 +26,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'avatar_url',
     ];
 
     /**
@@ -42,4 +48,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    // 获取头像URL
+    public function getFilamentAvatarUrl(): ?string
+    {
+        return $this->avatar_url ? Storage::url($this->avatar_url) : null ;
+    }
 }
