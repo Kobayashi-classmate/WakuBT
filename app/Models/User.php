@@ -13,9 +13,11 @@ use Filament\Models\Contracts\HasAvatar;
 
 use Jeffgreco13\FilamentBreezy\Traits\TwoFactorAuthenticatable;
 
+use Spatie\Permission\Traits\HasRoles;
+
 class User extends Authenticatable implements HasAvatar
 {
-    use HasApiTokens, HasFactory, Notifiable, TwoFactorAuthenticatable;
+    use HasApiTokens, HasFactory, Notifiable, TwoFactorAuthenticatable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -25,6 +27,7 @@ class User extends Authenticatable implements HasAvatar
     protected $fillable = [
         'name',
         'email',
+        'mobile',
         'password',
         'avatar_url',
         'role',
